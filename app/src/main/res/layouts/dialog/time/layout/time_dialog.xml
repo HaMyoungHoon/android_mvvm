@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="mhha.sample.android_mvvm.views.dialog.time.TimeDialogVM.ClickEvent" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.views.dialog.time.TimeDialogVM" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_background_radius_r" >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/close_desc"
+            android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.CLOSE)}"
+            android:src="@drawable/cross"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TimePicker
+            android:id="@+id/tp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:timePickerMode="spinner"
+            android:hour="@={dataContext.hour}"
+            android:minute="@={dataContext.minute}"
+            app:layout_constraintEnd_toEndOf="@id/iv_close"
+            app:layout_constraintTop_toBottomOf="@id/iv_close" />
+
+        <View
+            android:id="@+id/vw_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="44dp"
+            android:background="@color/gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tp" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            app:layout_constraintTop_toBottomOf="@id/vw_line">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/negativeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingExtra="8dp"
+                android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.CANCEL)}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@string/time_dialog_cancel_btn_desc"
+                android:textColor="@color/gray"
+                android:textSize="16dp"
+                android:textStyle="normal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/positiveButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:lineSpacingExtra="8dp"
+                android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.SAVE)}"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@string/time_dialog_save_btn_desc"
+                android:textColor="@color/primary"
+                android:textSize="16dp"
+                android:textStyle="normal" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

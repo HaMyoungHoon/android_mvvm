@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">android_mvvm</string>
+    <string name="albom_permission_title">Albom Permit</string>
+    <string name="read_external_permission_message">Read Permit Request</string>
+    <string name="cancel_desc">Cancel</string>
+    <string name="denied_permission_title">Need Permit</string>
+    <string name="permission_setting_desc">Permit Setting</string>
+    <string name="save_desc">Save</string>
+    <string name="time_dialog_save_btn_desc">Save</string>
+    <string name="time_dialog_cancel_btn_desc">No Setting</string>
+    <string name="close_desc">Close</string>
+
+    <string name="material_calendar_monday">Mon</string>
+    <string name="material_calendar_tuesday">Tues</string>
+    <string name="material_calendar_wednesday">Wed</string>
+    <string name="material_calendar_thursday">Thur</string>
+    <string name="material_calendar_friday">Fri</string>
+    <string name="material_calendar_saturday">Sat</string>
+    <string name="material_calendar_sunday">Sun</string>
+    <array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array>
+    <string name="apply_desc">Apply</string>
+    <string name="main_menu_icon_desc">Menu icon</string>
+    <string name="main_menu_title_desc">Menu title</string>
+    <string name="home_sub_network_open_connect_error">need to upper Q</string>
+    <string name="home_sub_network_permission_error">need permission</string>
+    <string name="home_sub_network_wifi_ssid_error">wifi on plz</string>
+</resources>

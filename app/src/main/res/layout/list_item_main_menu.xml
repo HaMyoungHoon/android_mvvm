@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <import type="mhha.sample.android_mvvm.MainMenuListModel.ClickEvent" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.MainMenuListModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/gray"
+        android:onClick="@{()->dataContext.onClick(ClickEvent.SELECT)}">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/main_menu_icon_desc"
+            app:glide_res_src="@{dataContext.icon}"
+            app:glide_res_src_center="@{true}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/buff_img_1"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{dataContext.name}"
+            android:textSize="11sp"
+            android:textColor="@color/def_foreground"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:layout_constraintTop_toBottomOf="@id/iv_icon"
+            app:layout_constraintStart_toStartOf="@id/iv_icon"
+            app:layout_constraintEnd_toEndOf="@id/iv_icon"
+            tools:text="menu"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

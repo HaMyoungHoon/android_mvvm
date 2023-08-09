@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">android_mvvm</string>
+    <string name="permit_need_message" translatable="false">need permit</string>
+    <string name="media_able_click_suffix_desc" translatable="false">개 선택 가능</string>
+    <string name="albom_permission_title">앨범 권한</string>
+    <string name="read_external_permission_message">읽기 권한 요청</string>
+    <string name="cancel_desc">취소</string>
+    <string name="denied_permission_title">권한 주셈</string>
+    <string name="permission_setting_desc">권한 설정</string>
+    <string name="save_desc">저장</string>
+    <string name="time_dialog_save_btn_desc">저장</string>
+    <string name="time_dialog_cancel_btn_desc">설정안함</string>
+    <string name="close_desc">닫기</string>
+
+    <string name="material_calendar_monday">월</string>
+    <string name="material_calendar_tuesday">화</string>
+    <string name="material_calendar_wednesday">수</string>
+    <string name="material_calendar_thursday">목</string>
+    <string name="material_calendar_friday">금</string>
+    <string name="material_calendar_saturday">토</string>
+    <string name="material_calendar_sunday">일</string>
+    <array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array>
+    <string name="apply_desc">적용</string>
+    <string name="main_menu_icon_desc">메뉴 아이콘</string>
+    <string name="main_menu_title_desc">메뉴 이름</string>
+    <string name="main_home_menu_1_desc" translatable="false">time</string>
+    <string name="main_home_menu_2_desc" translatable="false">network</string>
+    <string name="home_sub_time_btn_1_desc" translatable="false">time</string>
+    <string name="home_sub_time_btn_2_desc" translatable="false">calendar</string>
+    <string name="home_sub_network_btn_1_desc" translatable="false">wifi ssid</string>
+    <string name="home_sub_network_btn_2_desc" translatable="false">open connect</string>
+    <string name="home_sub_network_open_connect_error">Q 이상 버전에서만 가능</string>
+    <string name="home_sub_network_permission_error">권한이 부족합니다.</string>
+    <string name="home_sub_network_wifi_ssid_error">wifi가 꺼져있는듯</string>
+</resources>

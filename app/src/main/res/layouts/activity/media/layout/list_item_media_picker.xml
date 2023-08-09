@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <import type="mhha.sample.android_mvvm.utils.FExtensionUtils.MediaFileType" />
+        <import type="mhha.sample.android_mvvm.views.media.picker.MediaPickerSourceModel.ClickEvent" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.views.media.picker.MediaPickerSourceModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onLongClickListener="@{()->dataContext.onLongClick(ClickEvent.SELECT_LONG)}"
+        android:onClick="@{()->dataContext.onClick(ClickEvent.SELECT)}">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="1dp"
+            android:visibility="@{dataContext.mediaFileType == MediaFileType.VIDEO ? View.VISIBLE : View.GONE}"
+            app:glide_thumbnail_src_uri="@{dataContext.mediaPath}"
+            app:glide_thumbnail_src_uri_width="@{150}"
+            app:glide_thumbnail_src_uri_height="@{150}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{dataContext.mediaFileType == MediaFileType.VIDEO ? View.VISIBLE : View.GONE}"
+            android:text="@{dataContext.durationString}"
+            android:textColor="@color/absolute_white"
+            android:textSize="13sp"
+            android:elevation="2dp"
+            android:background="@color/color_1F000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="01:01"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="1dp"
+            android:visibility="@{dataContext.mediaFileType == MediaFileType.IMAGE ? View.VISIBLE : View.GONE}"
+            app:glide_src_uri="@{dataContext.mediaPath}"
+            app:glide_src_uri_width="@{150}"
+            app:glide_src_uri_height="@{150}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_launcher_foreground" />
+        <View
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="2dp"
+            android:visibility="@{dataContext.lastClick ? View.VISIBLE : View.GONE}"
+            android:background="#AAFFFFFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/iv_check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:elevation="2dp"
+            android:textSize="12dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:circle_number_src="@{dataContext.num}"
+            app:circle_number_solid="@{dataContext.solid}"
+            app:circle_number_stroke="@{dataContext.stroke}"
+            tools:text="1"
+            tools:background="@drawable/circle_plus"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

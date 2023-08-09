@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="mhha.sample.android_mvvm.views.main.home.time.HomeSubTimeFragmentVM.ClickEvent" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.views.main.home.time.HomeSubTimeFragmentVM" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sub_time_btn_1_desc"
+            android:textSize="13sp"
+            android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.TIME)}" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_sub_time_btn_2_desc"
+            android:textSize="13sp"
+            android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.CALENDAR)}" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

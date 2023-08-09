@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="mhha.sample.android_mvvm.views.main.home.network.HomeSubNetworkFragmentVM.ClickEvent" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.views.main.home.network.HomeSubNetworkFragmentVM" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:text="@string/home_sub_network_btn_1_desc"
+                android:textSize="13sp"
+                android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.WIFI_SSID)}"
+                android:background="@drawable/shape_background_radius"
+                android:backgroundTint="@color/gray" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="15dp"
+                android:text="@string/home_sub_network_btn_2_desc"
+                android:textSize="13sp"
+                android:onClick="@{()->dataContext.relayCommand.execute(ClickEvent.OPEN_CONNECT)}"
+                android:background="@drawable/shape_background_radius"
+                android:backgroundTint="@color/gray" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{dataContext.ssidData}"
+            android:textSize="13sp"
+            tools:text="ssid" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

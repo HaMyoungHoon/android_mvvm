@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.views.main.home.MainHomeFragmentVM" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:divider="@drawable/vertical_divider"
+        app:showDividers="middle">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/shape_home_tab_background"
+            app:tabGravity="center"
+            app:tabMode="fixed"
+            app:tabPaddingStart="5dp"
+            app:tabPaddingEnd="5dp"
+            app:tabIndicator="@null"
+            app:tabRippleColor="@null" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_middle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

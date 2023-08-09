@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/def_background"
+        android:orientation="vertical">
+
+        <!-- date toolbar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/calendarHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingTop="32dp"
+            android:paddingBottom="12dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/previousButton"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="26dp"
+                android:src="@drawable/arrow_left"
+                app:layout_constraintBottom_toBottomOf="@id/currentDateLabel"
+                app:layout_constraintEnd_toStartOf="@id/currentDateLabel"
+                app:layout_constraintTop_toTopOf="@id/currentDateLabel" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/forwardButton"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="26dp"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintBottom_toBottomOf="@id/currentDateLabel"
+                app:layout_constraintStart_toEndOf="@id/currentDateLabel"
+                app:layout_constraintTop_toTopOf="@id/currentDateLabel" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cross"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintBottom_toBottomOf="@id/currentDateLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/currentDateLabel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/currentDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/def_foreground"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="2023.06"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- eventDays header -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/abbreviationsBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="7dp"
+            android:layout_marginTop="14dp"
+            android:paddingBottom="7dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/mondayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_monday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tuesdayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_tuesday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/wednesdayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_wednesday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/thursdayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_thursday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fridayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_friday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/saturdayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_saturday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/sundayLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/material_calendar_sunday"
+                android:textColor="@color/gray"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <mhha.sample.android_mvvm.views.lib.calendar.extensions.CalendarViewPager
+                android:id="@+id/calendarViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
