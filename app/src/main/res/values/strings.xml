@@ -2,7 +2,7 @@
     <string name="app_name">android_mvvm</string>
     <string name="permit_need_message" translatable="false">need permit</string>
     <string name="media_able_click_suffix_desc" translatable="false">개 선택 가능</string>
-    <string name="albom_permission_title">앨범 권한</string>
+    <string name="album_permission_title">앨범 권한</string>
     <string name="read_external_permission_message">읽기 권한 요청</string>
     <string name="cancel_desc">취소</string>
     <string name="denied_permission_title">권한 주셈</string>

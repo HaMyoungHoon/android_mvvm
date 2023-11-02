@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <import type="mhha.sample.android_mvvm.utils.FGooglePlaySupport.MarkerClusterDataModel" />
+        <variable
+            name="dataContext"
+            type="mhha.sample.android_mvvm.utils.FGooglePlaySupport.MarkerClusterDataModel" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <mhha.sample.android_mvvm.utils.FHexagonMaskView
+            android:id="@+id/iv_hmv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_def_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:visibility="gone"
+            android:src="@drawable/buff_img_1" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            tools:text="marker name"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

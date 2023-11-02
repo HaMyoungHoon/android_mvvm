@@ -35,7 +35,7 @@ class FHexagonMaskView: androidx.appcompat.widget.AppCompatImageView {
         borderPaint.strokeWidth = 0F
         borderPaint.style = Paint.Style.STROKE
     }
-    private fun calculatePath(radius: Float) {
+    fun calculatePath(radius: Float) {
         val halfRadius = radius / 2F
         val triangleHeight = (sqrt(3.0) * halfRadius).toFloat()
         val centerX = measuredWidth / 2F

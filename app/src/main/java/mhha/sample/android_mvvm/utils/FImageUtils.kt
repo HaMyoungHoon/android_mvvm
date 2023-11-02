@@ -7,18 +7,28 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PorterDuff
 import android.media.ExifInterface
 import android.net.Uri
 import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
+import android.view.View
 import android.webkit.MimeTypeMap
 import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.core.net.toUri
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import mhha.sample.android_mvvm.R
 import mhha.sample.android_mvvm.bases.FConstants
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileInputStream
@@ -26,8 +36,87 @@ import java.io.FileOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 object FImageUtils {
+    fun getBitmapFromView(view: View): Bitmap {
+        view.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.draw(canvas)
+        return bitmap
+    }
+    fun urlToBitmap(url: String): BitmapDescriptor {
+        return try {
+            val bitmap = BitmapFactory.decodeStream(URL(url).openConnection().getInputStream())
+            BitmapDescriptorFactory.fromBitmap(bitmap)
+        } catch (_: Exception) {
+            BitmapDescriptorFactory.fromResource(R.drawable.buff_img_1)
+        }
+    }
+    fun bitmapHexagonMask(bitmap: Bitmap, radius: Float = 5F, cornerLength: Float = 10F) {
+        val canvas = Canvas(bitmap)
+        val halfRadius = radius / 2F
+        val triangleHeight = (sqrt(3.0) * halfRadius).toFloat()
+        val centerX = bitmap.width / 2F
+        val centerY = bitmap.height / 2F
+        val corner = cornerLength / 1
+        val halfCorner = corner / 2
+        val paint = Paint().apply {
+            color = Color.WHITE
+            strokeCap = Paint.Cap.ROUND
+            strokeWidth = 1F
+            style = Paint.Style.STROKE
+        }
+        val hexagonPath = Path().apply {
+            reset()
+            // ↓
+            moveTo(centerX + corner, centerY + radius - halfCorner)
+            quadTo(centerX, centerY + radius, centerX - corner, centerY + radius - halfCorner)
+            // ↙
+            lineTo(centerX - triangleHeight + corner, centerY + halfRadius + halfCorner)
+            quadTo(centerX - triangleHeight, centerY + halfRadius, centerX - triangleHeight, centerY + halfRadius - halfCorner)
+            // ↖
+            lineTo(centerX - triangleHeight, centerY - halfRadius + halfCorner)
+            quadTo(centerX - triangleHeight, centerY - halfRadius, centerX - triangleHeight + corner, centerY - halfRadius - halfCorner)
+            // ↑
+            lineTo(centerX - corner, centerY - radius + halfCorner)
+            quadTo(centerX, centerY - radius, centerX + corner, centerY - radius + halfCorner)
+            // ↗
+            lineTo(centerX + triangleHeight - corner, centerY - halfRadius - halfCorner)
+            quadTo(centerX + triangleHeight, centerY - halfRadius, centerX + triangleHeight, centerY - halfRadius + halfCorner)
+            // ↘
+            lineTo(centerX + triangleHeight, centerY + halfRadius - halfCorner)
+            quadTo(centerX + triangleHeight, centerY + halfRadius, centerX + triangleHeight - corner, centerY + halfRadius + halfCorner)
+            close()
+        }
+        val hexagonBorderPath = Path().apply {
+            reset()
+            // ↓
+            moveTo(centerX + corner, centerY + radius - halfCorner)
+            quadTo(centerX, centerY + radius, centerX - corner, centerY + radius - halfCorner)
+            // ↙
+            lineTo(centerX - triangleHeight + corner, centerY + halfRadius + halfCorner)
+            quadTo(centerX - triangleHeight, centerY + halfRadius, centerX - triangleHeight, centerY + halfRadius - halfCorner)
+            // ↖
+            lineTo(centerX - triangleHeight, centerY - halfRadius + halfCorner)
+            quadTo(centerX - triangleHeight, centerY - halfRadius, centerX - triangleHeight + corner, centerY - halfRadius - halfCorner)
+            // ↑
+            lineTo(centerX - corner, centerY - radius + halfCorner)
+            quadTo(centerX, centerY - radius, centerX + corner, centerY - radius + halfCorner)
+            // ↗
+            lineTo(centerX + triangleHeight - corner, centerY - halfRadius - halfCorner)
+            quadTo(centerX + triangleHeight, centerY - halfRadius, centerX + triangleHeight, centerY - halfRadius + halfCorner)
+            // ↘
+            lineTo(centerX + triangleHeight, centerY + halfRadius - halfCorner)
+            quadTo(centerX + triangleHeight, centerY + halfRadius, centerX + triangleHeight - corner, centerY + halfRadius + halfCorner)
+            close()
+        }
+        canvas.drawPath(hexagonBorderPath, paint)
+        canvas.clipPath(hexagonPath)
+        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
+    }
     fun fileDelete(context: Context, uri: Uri) {
         if (ableDeleteFile(context, uri)) {
             context.contentResolver.delete(uri, null, null)
@@ -54,6 +143,37 @@ object FImageUtils {
         false
     } catch (_: Exception) {
         false
+    }
+    fun isVideoFile(context: Context, uri: Uri): Boolean {
+        val videoFileHeaders = listOf(
+            byteArrayOf(0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x33, 0x67, 0x70, 0x35), // mp4
+            byteArrayOf(0x52, 0x49, 0x46, 0x46, 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0x41, 0x56, 0x49, 0x20, 0x4C, 0x49, 0x53, 0x54), // avi
+            byteArrayOf(0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x71, 0x74, 0x20, 0x20, 0x6D, 0x6F, 0x6F, 0x76), // mov
+//            byteArrayOf(0x52, 0x49, 0x46, 0x46, 0x2A, 0x00, 0x00, 0x00, 0x57, 0x45, 0x42, 0x50) // webp
+        )
+
+        if (isLocalFile(context, uri)) {
+            FileInputStream(uri.toFile()).use { x ->
+                val headerBytes = ByteArray(16)
+                x.read(headerBytes)
+                for (videoHeader in videoFileHeaders) {
+                    if (headerBytes.contentEquals(videoHeader)) {
+                        return true
+                    }
+                }
+            }
+        } else {
+            context.contentResolver.openInputStream(uri).use { x ->
+                val headerBytes = ByteArray(16)
+                x?.read(headerBytes)
+                for (videoHeader in videoFileHeaders) {
+                    if (headerBytes.contentEquals(videoHeader)) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
     fun isLocalFile(context: Context, fileUri: Uri): Boolean {
         val scheme = fileUri.scheme
@@ -229,4 +349,6 @@ object FImageUtils {
         return BitmapFactory.decodeStream(inputStream)
     }
 
+    fun getMultipartBodyBuilder() = MultipartBody.Builder().setType(MultipartBody.FORM)
+    fun getMultipartBodyPart(key: String, file: File) = MultipartBody.Part.createFormData(key, file.name, file.asRequestBody(getFileMediaType(file)))
 }

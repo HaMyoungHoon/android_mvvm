@@ -126,7 +126,7 @@ class MainActivity: FBaseActivity<MainActivityBinding, MainActivityVM>() {
         ret.add(MainMenuListModel(2, R.drawable.buff_img_3, "menu3"))
         ret.add(MainMenuListModel(3, android.R.drawable.ic_dialog_map, "google map"))
         ret.add(MainMenuListModel(4, android.R.drawable.ic_menu_gallery, "picker"))
-        ret.add(MainMenuListModel(54, android.R.drawable.ic_menu_view, "naver"))
+        ret.add(MainMenuListModel(5, android.R.drawable.ic_menu_view, "naver"))
         dataContext.menuItems.value = ret
     }
     private fun setViewPager() {

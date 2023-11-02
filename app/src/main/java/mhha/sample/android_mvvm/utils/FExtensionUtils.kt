@@ -5,9 +5,12 @@ import android.content.SharedPreferences
 import android.util.TypedValue
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import mhha.sample.android_mvvm.bases.FConstants
 import mhha.sample.android_mvvm.models.fDate.FDateTime
 import mhha.sample.android_mvvm.models.fDate.FLocalize
+import mhha.sample.android_mvvm.models.rest.FCommonResult
 import java.util.Locale
 import java.util.UUID
 
@@ -32,6 +35,22 @@ object FExtensionUtils {
     fun getTodayDateTimeString() = getToday().toString("yyyy-MM-dd hh:mm:ss")
 
     fun getUUID() = UUID.randomUUID().toString()
+    fun getResult(data: String?): FCommonResult {
+        if (data == null) {
+            return FCommonResult().setFail(failMessage = "not defined error")
+        }
+        val firstBrace = data.indexOf("{")
+        val lastBrace = data.lastIndexOf("}")
+        if (firstBrace == -1 || lastBrace == -1) {
+            return FCommonResult().setFail(failMessage = data)
+        }
+        val iThinkItIsJson = data.substring(firstBrace, lastBrace + 1)
+        return try {
+            Gson().fromJson(iThinkItIsJson, (object: TypeToken<FCommonResult>() { }).type)
+        } catch (e: Exception) {
+            FCommonResult().setFail(failMessage = data)
+        }
+    }
 
     fun getNumberSuffixes(data: Long): String {
         val suffixes = listOf("", "k", "m", "b", "t")
@@ -64,6 +83,19 @@ object FExtensionUtils {
         } else {
             String.format("%02d:%02d", minutes, seconds)
         }
+    }
+    fun isTimeString(hhMMss: String): Boolean {
+        if (hhMMss.isEmpty()) return false
+        if (hhMMss.replace(Regex("\\d+"), "").replace(":", "").isNotEmpty()) return false
+        val split = hhMMss.split(":")
+        if (split.isEmpty()) return false
+        val hour = try { split[0].toInt() } catch (_: Exception) { return false }
+        var min = 0
+        var sec = 0
+        if (split.size >= 2) min = try { split[1].toInt() } catch (_: Exception) { return false }
+        if (split.size >= 3) sec = try { split[2].toInt() } catch (_: Exception) { return false }
+        if ((hour + min + sec) == 0) return false
+        return true
     }
 
     enum class MediaResType(val index: Int) {

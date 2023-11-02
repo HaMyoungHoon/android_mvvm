@@ -9,7 +9,6 @@ import android.graphics.drawable.LayerDrawable
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.findViewTreeLifecycleOwner
@@ -88,7 +87,7 @@ class MediaPickerActivity: FBaseActivity<MediaPickerActivityBinding, MediaPicker
     private fun getPermission() {
         FCoroutineUtil.coroutineScope({
             TedPermission.create()
-                .setRationaleTitle(getString(R.string.albom_permission_title))
+                .setRationaleTitle(getString(R.string.album_permission_title))
                 .setRationaleMessage(getString(R.string.read_external_permission_message))
                 .setDeniedTitle(getString(R.string.cancel_desc))
                 .setDeniedMessage(getString(R.string.denied_permission_title))
